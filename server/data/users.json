@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "642b39d6a0889c1ea1f7eb36",
+    "name": "Mohamed",
+    "username": "mohamed",
+    "email": "mohamed@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": "642b39d6a0889c1ea1f7eb37",
+    "name": "Ruba",
+    "username": "ruba",
+    "email": "ruba@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": "642b39d6a0889c1ea1f7eb38",
+    "name": "Ali",
+    "username": "ali",
+    "email": "ali@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": "642b39d6a0889c1ea1f7eb3a",
+    "name": "Ziyad",
+    "username": "ziyad",
+    "email": "ziyad@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": "642b39d6a0889c1ea1f7eb35",
+    "name": "Rose",
+    "username": "rose",
+    "email": "rose@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": "642b39d6a0889c1ea1f7eb39",
+    "name": "Najid",
+    "username": "najid",
+    "email": "najid@gmail.com",
+    "password": "123456"
+  }
+]
