@@ -24,6 +24,14 @@ const errorHandler = (err, req, res, next) => {
     );
   }
 
+  // Catch not found error
+  if (err.name === "CastError") {
+    error = new ErrorResponse(
+      `${res.resourceType || "Resource"} not found`,
+      404
+    );
+  }
+
   res.status(error.statusCode || 500).json({
     success: false,
     data: null,
