@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 // Route files
 const auth = require("./routes/auth");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
 
 // Create express App
 const app = express();
@@ -24,6 +25,7 @@ app.use(cookieParser());
 // Mount routes
 app.use("/auth", auth);
 app.use("/posts", posts);
+app.use("/comments", comments);
 
 // Error handler middleware
 app.use(errorHandler);
