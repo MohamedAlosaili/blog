@@ -1,5 +1,6 @@
 [
   {
+    "_id": "642bf7a89a37d2294d6d0969",
     "title": "How to build a great portfolio website",
     "summary": "In this article, we'll cover the essential components of a great portfolio website and provide tips for creating one that stands out.",
     "coverImage": "https://example.com/images/portfolio-cover.jpg",
@@ -8,6 +9,7 @@
     "author": "642b39d6a0889c1ea1f7eb36"
   },
   {
+    "_id": "642bf7a89a37d2294d6d096a",
     "title": "10 Tips for Productive Remote Work",
     "summary": "Working remotely can be challenging, but with these tips, you can stay productive and achieve your goals from anywhere in the world.",
     "coverImage": "https://example.com/images/remote-work-cover.jpg",
@@ -16,6 +18,7 @@
     "author": "642b39d6a0889c1ea1f7eb37"
   },
   {
+    "_id": "642bf7a89a37d2294d6d096b",
     "title": "The Benefits of Meditation for Mental Health",
     "summary": "Meditation is a powerful tool for improving mental health. In this article, we'll explore the benefits of meditation and provide tips for getting started.",
     "coverImage": "https://example.com/images/meditation-cover.jpg",
@@ -24,6 +27,7 @@
     "author": "642b39d6a0889c1ea1f7eb38"
   },
   {
+    "_id": "642bf7a89a37d2294d6d096c",
     "title": "The Power of Collaboration",
     "summary": "Collaboration is the key to success, both in personal and professional life. In this blog, we will explore the power of collaboration and how it can benefit you.",
     "coverImage": "https://example.com/images/collaboration.jpg",
@@ -32,6 +36,7 @@
     "author": "642b39d6a0889c1ea1f7eb3a"
   },
   {
+    "_id": "642bf7a89a37d2294d6d096d",
     "title": "The Importance of Self-Care",
     "summary": "Self-care is essential for maintaining physical, emotional, and mental well-being. In this blog, we will explore the importance of self-care and how you can incorporate it into your daily routine.",
     "coverImage": "https://example.com/images/self-care.jpg",
