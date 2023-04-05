@@ -6,7 +6,10 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route    GET /posts
 // @accesss  Public
 exports.getPosts = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find().select("-content").sort("-createdAt");
+  const posts = await Post.find()
+    .select("-content")
+    .sort("-createdAt")
+    .populate("author", "name username");
 
   res.status(200).json({
     success: true,
