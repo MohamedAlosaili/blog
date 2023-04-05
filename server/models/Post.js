@@ -39,12 +39,24 @@ const PostSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
+    toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
+  }
 );
 
 PostSchema.pre("save", function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
+});
+
+// Virtual populate
+PostSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "post",
+  justOne: false,
 });
 
 module.exports = mongoose.model("Post", PostSchema);
