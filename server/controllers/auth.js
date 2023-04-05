@@ -37,8 +37,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
 
-  user.password = undefined;
-
   sendResponseAndCookie(user, 200, res);
 });
 
@@ -74,12 +72,12 @@ exports.getCurrentUser = (req, res, next) =>
   res.status(200).json({ success: true, data: req.user });
 
 // @desc     Forgot password
-// @route    GET /auth/forgotpassword
+// @route    POST /auth/forgotpassword
 // @accesss  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email });
 
   if (!user) {
     return next(new ErrorResponse("User not found", 404));
@@ -100,9 +98,9 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   }
 
   const token = user.getJwtToken("password");
-  const expireDate = new Date(Date.now() + 15 * 60 * 1000);
+  const expireDate = new Date(Date.now() + 10 * 60 * 1000);
 
-  const url = `${req.protocol}://${req.headers.host}/resetpassword/${token}`;
+  const url = `${req.headers["x-client-url"]}/resetpassword/${token}`;
   await sendEmail(user.email, url, user.name);
 
   user.resetPasswordToken = token;
