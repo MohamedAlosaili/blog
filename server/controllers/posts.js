@@ -6,7 +6,7 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route    GET /posts
 // @accesss  Public
 exports.getPosts = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find().select("-content");
+  const posts = await Post.find().select("-content").sort("-createdAt");
 
   res.status(200).json({
     success: true,
@@ -34,8 +34,13 @@ exports.searchPosts = asyncHandler(async (req, res, next) => {
 exports.getPost = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  // TODO: I will populate the author + reviews to single post
-  const post = await Post.findById(id).populate("author", "username");
+  const post = await Post.findById(id).populate([
+    { path: "author", select: "name username" },
+    {
+      path: "comments",
+      populate: { path: "author", select: "name username" },
+    },
+  ]);
 
   if (!post) {
     return next(new ErrorResponse("Post not found", 404));
@@ -54,7 +59,6 @@ exports.createPost = asyncHandler(async (req, res, next) => {
   // Add author id
   req.body.author = req.user.id;
 
-  // TODO: One post per day per user
   const post = await Post.create(req.body);
 
   res.status(201).json({
