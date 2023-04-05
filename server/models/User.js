@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
       minlength: [6, "Password must be at least 6 characters"],
-      maxlength: [32, "Password cannot be at more than 32 characters"],
       select: false,
     },
     resetPasswordToken: String,
@@ -40,7 +39,7 @@ const UserSchema = new mongoose.Schema(
 
 // Encrypt and hash the password
 UserSchema.pre("save", async function (next) {
-  if (!this.isModified(this.password)) return next();
+  if (!this.isModified(this.password) && !this.isNew) return next();
 
   try {
     const salt = await bcrypt.genSalt(10);
@@ -61,7 +60,7 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 
 // Sign and return a new JWT(Json Web Token)
 UserSchema.methods.getJwtToken = function (type) {
-  const expiresIn = type === "password" ? "1m" : process.env.JWT_EXPIRE;
+  const expiresIn = type === "password" ? "10m" : process.env.JWT_EXPIRE;
 
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn });
 };
