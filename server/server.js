@@ -17,7 +17,7 @@ const app = express();
 connectDB();
 
 // Parse Request Body
-app.use(express.json());
+app.use(express.json({ limit: "30mb" }));
 
 // Parse cookie
 app.use(cookieParser());
