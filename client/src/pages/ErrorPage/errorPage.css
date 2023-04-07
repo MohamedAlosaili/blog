@@ -1,0 +1,27 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.error--code {
+  font-size: 6rem;
+}
+
+.error--text {
+  text-align: center;
+}
+
+.error--text.red {
+  color: rgba(255, 0, 0, 0.85);
+}
+
+.error .button {
+  width: auto;
+}
