@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid rgba(var(--accent-color), 0.15);
+}
+
+.header--logo {
+  font-size: 2rem;
+  white-space: nowrap;
+  color: rgb(var(--accent-color));
+}
+
+.header--button {
+  width: auto;
+}
