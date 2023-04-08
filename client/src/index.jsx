@@ -9,14 +9,17 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+import ErrorBoundary from "./pages/ErrorBoundary";
 import App from "./App";
 import Home, { loader as homeLoader } from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>
       <Route index element={<Home />} loader={homeLoader} />
+      <Route path="login" element={<Login />} />
     </Route>
   )
 );
@@ -33,6 +36,8 @@ if (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
   </React.StrictMode>
 );
