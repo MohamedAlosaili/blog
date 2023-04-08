@@ -1,13 +1,12 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-function App() {
-  return (
-    <div>
-      Hello World!
-      <Link to="blahblah">Click</Link>
-    </div>
-  );
-}
+import Header from "./components/Header";
+
+const App = () => (
+  <div>
+    <Header />
+    <Outlet />
+  </div>
+);
 
 export default App;
