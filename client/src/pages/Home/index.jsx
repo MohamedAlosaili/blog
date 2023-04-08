@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { useLoaderData, Form, useSubmit } from "react-router-dom";
+import {
+  useLoaderData,
+  Form,
+  useSubmit,
+  useNavigation,
+} from "react-router-dom";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 import { getPosts, getPostsFromSearch } from "../../fetchData";
 import "./home.css";
@@ -24,6 +30,7 @@ export async function loader({ request }) {
 
 const Home = () => {
   const { posts, query } = useLoaderData();
+  const navigation = useNavigation();
   const submit = useSubmit();
 
   useEffect(() => {
@@ -31,6 +38,8 @@ const Home = () => {
       query ? ` | Search result for '${query}'` : ""
     }`;
   }, [query]);
+
+  const isSearching = navigation.location;
 
   const postsList = posts.map(post => <Post key={post.id} post={post} />);
 
@@ -55,6 +64,7 @@ const Home = () => {
             submit(e.currentTarget.form, { replace: query !== null })
           }
         />
+        {isSearching && <CgSpinnerTwo className="home--form_spinner" />}
       </Form>
       <section className="home--posts">
         {postsList.length > 0 ? postsList : noPostsFound}

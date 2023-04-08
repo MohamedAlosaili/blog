@@ -7,12 +7,21 @@
 
 .home--form {
   position: relative;
+  width: min(90%, 500px);
+  margin: 0 auto;
+}
+
+.home--form_spinner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.5rem;
+  font-size: 1.5rem;
+  animation: spin 0.75s linear infinite;
 }
 
 .home--search {
-  display: block;
-  width: min(90%, 500px);
-  margin: 0 auto;
+  width: 100%;
   border: 0.15rem solid rgba(var(--accent-color), 0.3);
   background-color: rgba(var(--accent-color), 0.3);
   border-radius: 0.5rem;
@@ -159,5 +168,11 @@
     height: 20rem;
     width: 100%;
     aspect-ratio: auto;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: translateY(-50%) rotate(1turn);
   }
 }
