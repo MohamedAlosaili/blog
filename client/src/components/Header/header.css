@@ -1,17 +1,30 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 2rem 1rem;
   border-bottom: 1px solid rgba(var(--accent-color), 0.15);
 }
 
 .header--logo {
+  margin-right: auto;
   font-size: 2rem;
   white-space: nowrap;
   color: rgb(var(--accent-color));
 }
 
+.header--user {
+  margin-inline: 1rem;
+}
+
 .header--button {
   width: auto;
+}
+
+.header--theme {
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: initial;
+  border: initial;
+  color: rgb(var(--accent-color));
+  line-height: 100%;
 }

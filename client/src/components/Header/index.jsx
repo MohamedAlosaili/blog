@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BsFillSunFill, BsMoonStarsFill } from "react-icons/bs";
 
 import Button from "../Button";
@@ -7,24 +7,21 @@ import "./header.css";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
   return (
     <header className="header">
       <Link to="/" className="header--logo">
         {"<Blog />"}
       </Link>
-
-      <Button onClick={toggleTheme} className="header--button">
-        {theme === "dark" ? (
-          <>
-            {"Light"} <BsFillSunFill />
-          </>
-        ) : (
-          <>
-            {"Dark"} <BsMoonStarsFill />
-          </>
-        )}
-      </Button>
+      <div className="header--user">
+        <Link to="/login" state={{ from: location.pathname }}>
+          <Button className="header--button">Login</Button>
+        </Link>
+      </div>
+      <button className="header--theme" onClick={toggleTheme}>
+        {theme === "dark" ? <BsFillSunFill /> : <BsMoonStarsFill />}
+      </button>
     </header>
   );
 };
