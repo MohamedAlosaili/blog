@@ -1,0 +1,60 @@
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+}
+
+.login--wrapper {
+  background-color: #1e293b;
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+}
+
+html.light .login--wrapper {
+  background-color: #cbd5e1;
+}
+
+.login--title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.login--title span {
+  color: rgb(var(--accent-color));
+}
+
+.login--form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: 1rem;
+}
+
+.login--input {
+  display: block;
+  border: 0.15rem solid rgb(var(--accent-color), 0.1);
+  background-color: rgb(var(--accent-color), 0.1);
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.login--input:focus {
+  outline: none;
+  border-color: rgb(var(--accent-color));
+}
+
+.login--input[type="password"]::placeholder {
+  font-size: 0.5rem;
+}
+
+.login--input::placeholder {
+  opacity: 0.5;
+  color: inherit;
+  transition: 0.15s ease-in-out;
+}
+
+.login--input:focus::placeholder {
+  opacity: 0;
+}
