@@ -1,6 +1,7 @@
 .button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   width: 100%;
   cursor: pointer;
@@ -13,7 +14,7 @@
   font-weight: 500;
   border-radius: 0.5rem;
   text-transform: capitalize;
-  transition: background-color 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .button:active {
@@ -22,4 +23,10 @@
 
 .button:hover {
   background-color: rgba(var(--accent-color), 0.1);
+}
+
+@media (max-width: 640px) {
+  .button {
+    font-size: 0.875rem;
+  }
 }
