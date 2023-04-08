@@ -39,7 +39,9 @@ const Home = () => {
     }`;
   }, [query]);
 
-  const isSearching = navigation.location;
+  const isSearching =
+    navigation.location &&
+    new URLSearchParams(navigation.location?.search).get("search");
 
   const postsList = posts.map(post => <Post key={post.id} post={post} />);
 
