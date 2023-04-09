@@ -25,7 +25,7 @@ function useAuth() {
     error && setError(undefined);
     try {
       const user = await getCurrentUser();
-      setUser(user);
+      setUser(user.data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -34,7 +34,7 @@ function useAuth() {
     }
   }
 
-  return [user, loading, error];
+  return [user, loading, error, getUserInfo];
 }
 
 export { UserContext, UserContextProvider };
