@@ -23,7 +23,7 @@ const ErrorPage = () => {
         We're sorry, but an error occurred while processing your request.
       </p>
       <p className="error--text red">
-        Error: {error.error?.message || error.statusText || error.toString()}
+        Error: {error.error?.message || error.statusText || error.message}
       </p>
       <Button onClick={() => navigate(-1)}>Previous page</Button>
     </div>
