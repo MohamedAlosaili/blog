@@ -36,6 +36,7 @@ html.light .login--wrapper {
   border: 0.15rem solid rgb(var(--accent-color), 0.1);
   background-color: rgb(var(--accent-color), 0.1);
   width: 100%;
+  color: inherit;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
 }
@@ -57,4 +58,8 @@ html.light .login--wrapper {
 
 .login--input:focus::placeholder {
   opacity: 0;
+}
+
+.login--signup--link {
+  color: rgb(var(--accent-color));
 }
