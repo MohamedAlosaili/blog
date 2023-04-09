@@ -13,7 +13,7 @@ const App = () => {
   return (
     <div>
       <UserContextProvider>
-        <ToastContainer position="top-center" />
+        <ToastContainer position="top-center" limit={2} />
         {showHeader && <Header />}
         <Outlet />
       </UserContextProvider>
