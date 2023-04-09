@@ -17,7 +17,7 @@
   transform: translateY(-50%);
   right: 0.5rem;
   font-size: 1.5rem;
-  animation: spin 0.75s linear infinite;
+  animation: search-spin 0.75s linear infinite;
 }
 
 .home--search {
@@ -120,45 +120,6 @@
   overflow: hidden;
 }
 
-.post--link {
-  font-size: 0.875rem;
-  font-weight: 600;
-  position: relative;
-
-  background-image: linear-gradient(
-    to right,
-    rgb(var(--accent-color)),
-    rgb(var(--accent-color)) 50%,
-    var(--color) 50%
-  );
-
-  background-size: 200% 100%;
-  background-position: -100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.3s ease-in-out;
-}
-
-.post--link:hover {
-  background-position: 0;
-}
-
-.post--link::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0.15rem;
-  background-color: rgb(var(--accent-color));
-  transition: all 0.3s ease-in-out;
-}
-
-.post--link:hover::before {
-  width: 100%;
-}
-
 @media (max-width: 640px) {
   .post {
     flex-direction: column;
@@ -171,7 +132,7 @@
   }
 }
 
-@keyframes spin {
+@keyframes search-spin {
   100% {
     transform: translateY(-50%) rotate(1turn);
   }
