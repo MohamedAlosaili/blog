@@ -20,7 +20,7 @@ const Post = ({ post }) => (
         ))}
       </div>
       <p className="post--summary">{post.summary}</p>
-      <Link to={`posts/${post._id}`} className="post--link">
+      <Link to={`posts/${post._id}`} className="link">
         Read more
       </Link>
     </div>
