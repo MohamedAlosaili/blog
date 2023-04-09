@@ -66,7 +66,7 @@ const Home = () => {
             submit(e.currentTarget.form, { replace: query !== null })
           }
         />
-        {isSearching && <CgSpinnerTwo className="home--form_spinner" />}
+        {isSearching && <CgSpinnerTwo className="loading-spinner" />}
       </Form>
       <section className="home--posts">
         {postsList.length > 0 ? postsList : noPostsFound}
