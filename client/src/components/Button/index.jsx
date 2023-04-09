@@ -1,7 +1,11 @@
 import "./button.css";
 
-const Button = ({ className, onClick, children }) => (
-  <button className={`button ${className}`} onClick={onClick}>
+const Button = ({ className, onClick, children, disabled }) => (
+  <button
+    className={`button ${className}`}
+    onClick={onClick}
+    disabled={disabled}
+  >
     {children}
   </button>
 );
