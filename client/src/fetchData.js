@@ -1,7 +1,7 @@
 const API_BASE = import.meta.env.VITE_API_URL;
 
 const request = async (method, url, body) => {
-  const options = { method };
+  const options = { method, credentials: "include" };
 
   if (body) {
     options.headers = {
@@ -28,5 +28,10 @@ export const getPostsFromSearch = query =>
 
 // Users
 export const loginUser = body => request("POST", "/api/v1/auth/login", body);
+
+export const logoutUser = () => request("GET", "/api/v1/auth/logout");
+
+export const signupUser = body =>
+  request("POST", "/api/v1/auth/register", body);
 
 export const getCurrentUser = () => request("GET", "/api/v1/auth/me");
