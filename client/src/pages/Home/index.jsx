@@ -4,6 +4,7 @@ import {
   Form,
   useSubmit,
   useNavigation,
+  Link,
 } from "react-router-dom";
 import { CgSpinnerTwo } from "react-icons/cg";
 
@@ -71,6 +72,9 @@ const Home = () => {
       <section className="home--posts">
         {postsList.length > 0 ? postsList : noPostsFound}
       </section>
+      <Link to="/posts/create" className="home--create--post">
+        + <span className="create--post_text">Create Post</span>
+      </Link>
     </main>
   );
 };
