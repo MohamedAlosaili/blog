@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Button from "../../components/Button";
+import Authentication from "../Authentication";
 import { loginUser } from "../../fetchData";
 import { UserContext } from "../../UserContext";
-import "./login.css";
 
 const Login = () => {
   const [user, userLoading, , getUserInfo] = useContext(UserContext);
@@ -16,53 +15,37 @@ const Login = () => {
     getUserInfo
   );
 
-  return !user && !userLoading ? (
-    <section className="login">
-      <div className="login--wrapper">
-        <h1 className="login--title">
-          Login to <span>{"<Blog />"}</span>
-        </h1>
-        <form className="login--form" onSubmit={login}>
-          <label className="login--label">
-            Username
-            <input
-              type="text"
-              name="username"
-              placeholder="e.g. user-123"
-              className="login--input"
-              value={loginInfo.username}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="login--label">
-            Password
-            <input
-              type="password"
-              name="password"
-              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-              className="login--input"
-              value={loginInfo.password}
-              onChange={handleChange}
-            />
-          </label>
-          <Button disabled={logging}>
-            {logging ? "Loggingin..." : "Login"}
-          </Button>
-          <p>
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="login--signup--link"
-              state={location.state ? { from: location.state.from } : undefined}
-            >
-              Sign up
-            </Link>
-          </p>
-        </form>
-      </div>
-    </section>
-  ) : (
-    <Navigate to="/" />
+  return (
+    <Authentication
+      page="login"
+      loading={logging}
+      location={location}
+      onSubmit={login}
+      actionButton={logging ? "Loggingin..." : "Login"}
+    >
+      <label className="form--label">
+        Username
+        <input
+          type="text"
+          name="username"
+          placeholder="e.g. user-123"
+          className="form--input"
+          value={loginInfo.username}
+          onChange={handleChange}
+        />
+      </label>
+      <label className="form--label">
+        Password
+        <input
+          type="password"
+          name="password"
+          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+          className="form--input"
+          value={loginInfo.password}
+          onChange={handleChange}
+        />
+      </label>
+    </Authentication>
   );
 };
 
@@ -88,17 +71,19 @@ function useLogin(location, getUserInfo) {
     try {
       const result = await loginUser(JSON.stringify(loginInfo));
 
+      if (!result.success) {
+        setLoading(false);
+        return toast.error(result.error);
+      }
+
       // Update user context
       await getUserInfo();
 
-      setLoading(false);
-      if (!result.success) {
-        return toast.error(result.error);
-      }
       const navigateTo = location.state ? location.state.from : "/";
       navigate(navigateTo, { replace: navigateTo });
 
       toast.success("Loggedin successfully", { autoClose: 1000 });
+      setLoading(false);
     } catch (err) {
       console.log(err);
       setLoading(false);
