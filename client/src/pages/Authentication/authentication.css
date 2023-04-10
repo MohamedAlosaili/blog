@@ -1,0 +1,33 @@
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+}
+
+.auth--wrapper {
+  background-color: var(--bg-color-alt);
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.auth--title {
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.auth--title span {
+  color: rgb(var(--accent-color));
+}
+
+.auth--form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: 1rem;
+}
+
+.auth--link {
+  color: rgb(var(--accent-color));
+}
