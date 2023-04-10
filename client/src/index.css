@@ -30,6 +30,7 @@
 
 html.light:root {
   --bg-color: #f1f5f9;
+  --bg-color-alt: #e2e8f0;
   --color: #334155;
 }
 
@@ -108,6 +109,35 @@ a {
 
 .loading-spinner {
   animation: spin 0.75s linear infinite;
+}
+
+.form--input {
+  display: block;
+  border: 0.15rem solid rgb(var(--accent-color), 0.1);
+  background-color: rgb(var(--accent-color), 0.1);
+  width: 100%;
+  color: inherit;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.form--input:focus {
+  outline: none;
+  border-color: rgb(var(--accent-color));
+}
+
+.form--input[type="password"]::placeholder {
+  font-size: 0.5rem;
+}
+
+.form--input::placeholder {
+  opacity: 0.5;
+  color: inherit;
+  transition: 0.15s ease-in-out;
+}
+
+.form--input:focus::placeholder {
+  opacity: 0;
 }
 
 @keyframes spin {
