@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import formatDate from "../../formatDate";
+
 const Post = ({ post }) => (
   <article className="home--post">
     <img
@@ -29,39 +31,4 @@ const Post = ({ post }) => (
   </article>
 );
 
-function formatDate(date) {
-  const formatedDate = new Date(date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  return formatedDate;
-}
-
 export default Post;
-
-/*
-{
-    "_id": "642bf7a89a37d2294d6d096b",
-    "title": "The Benefits of Meditation for Mental Health",
-    "coverImage": "https://example.com/images/meditation-cover.jpg",
-    "summary": "Meditation is a powerful tool for improving mental health. In this article, we'll explore the benefits of meditation and provide tips for getting started.",
-    "tags": [
-        "meditation",
-        "mental health",
-        "wellness"
-    ],
-    "likes": 0,
-    "author": {
-        "_id": "642b39d6a0889c1ea1f7eb38",
-        "name": "Ali",
-        "username": "ali"
-    },
-    "createdAt": "2023-04-05T20:34:09.184Z",
-    "updatedAt": "2023-04-05T20:34:09.184Z",
-    "slug": "the-benefits-of-meditation-for-mental-health",
-    "__v": 0,
-    "id": "642bf7a89a37d2294d6d096b"
-}
-*/
