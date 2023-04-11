@@ -8,6 +8,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { Provider } from "react-wrap-balancer";
 
 import ErrorBoundary from "./pages/ErrorBoundary";
 import App from "./App";
@@ -15,6 +16,11 @@ import Home, { loader as homeLoader } from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import EditPost, { loader as editPostLoader } from "./pages/EditPost";
+import Post, { loader as postLoader } from "./pages/Post";
+import DeletePost, {
+  action as deletePostAction,
+} from "./pages/Post/DeletePost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +28,19 @@ const router = createBrowserRouter(
       <Route index element={<Home />} loader={homeLoader} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
+      <Route path="posts/create" element={<EditPost />} />
+      <Route path="posts/:postId" element={<Post />} loader={postLoader}>
+        <Route
+          path="delete"
+          element={<DeletePost />}
+          action={deletePostAction}
+        />
+      </Route>
+      <Route
+        path="posts/:postId/edit"
+        element={<EditPost />}
+        loader={editPostLoader}
+      />
     </Route>
   )
 );
@@ -39,7 +58,9 @@ if (
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <RouterProvider router={router} />
+      <Provider>
+        <RouterProvider router={router} />
+      </Provider>
     </ErrorBoundary>
   </React.StrictMode>
 );
