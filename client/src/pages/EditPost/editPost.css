@@ -1,0 +1,65 @@
+.edit--post {
+  padding: 2rem 1rem 4rem;
+}
+
+.edit--post--title {
+  margin-block: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.edit--post--form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit--post--form .form--input {
+  margin-top: 0.25rem;
+}
+
+.input--hint--icon {
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.75rem;
+  border: 1px solid;
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 25px;
+  margin-left: 0.5rem;
+}
+
+.input--hint--text {
+  position: absolute;
+  background-color: var(--bg-color-alt);
+  font-size: 0.875rem;
+  max-width: 15rem;
+  z-index: 1;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 0.3s ease-in-out;
+}
+
+.input--hint--icon:hover + .input--hint--text {
+  opacity: 1;
+  visibility: visible;
+}
+
+.edit--post--buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.edit--post--cancel {
+  border-color: rgba(255, 0, 0, 0.85);
+  color: rgba(255, 0, 0, 0.85);
+}
+
+.edit--post--cancel:hover {
+  background-color: rgba(255, 0, 0, 0.15);
+}
