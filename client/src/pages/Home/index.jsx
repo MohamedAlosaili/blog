@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
   useLoaderData,
   Form,
@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 import { CgSpinnerTwo } from "react-icons/cg";
 
-import { getPosts, getPostsFromSearch } from "../../fetchData";
-import "./home.css";
 import Post from "./Post";
+import { getPosts, getPostsFromSearch } from "../../fetchData";
+import { UserContext } from "../../UserContext";
+import "./home.css";
 
 export async function loader({ request }) {
   let posts;
@@ -30,6 +31,7 @@ export async function loader({ request }) {
 }
 
 const Home = () => {
+  const [user, loading] = useContext(UserContext);
   const { posts, query } = useLoaderData();
   const navigation = useNavigation();
   const submit = useSubmit();
@@ -72,9 +74,11 @@ const Home = () => {
       <section className="home--posts">
         {postsList.length > 0 ? postsList : noPostsFound}
       </section>
-      <Link to="/posts/create" className="home--create--post">
-        + <span className="create--post_text">Create Post</span>
-      </Link>
+      {user && !loading && (
+        <Link to="/posts/create" className="home--create--post">
+          + <span className="create--post_text">Create Post</span>
+        </Link>
+      )}
     </main>
   );
 };
