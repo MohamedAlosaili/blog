@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Balancer from "react-wrap-balancer";
 
 import formatDate from "../../formatDate";
 
@@ -11,7 +12,9 @@ const Post = ({ post }) => (
     />
     <div className="home--post--text">
       <Link to={`posts/${post._id}`}>
-        <h1 className="home--post--title">{post.title}</h1>
+        <h1 className="home--post--title">
+          <Balancer>{post.title}</Balancer>
+        </h1>
       </Link>
       <p className="home--post--date">
         Published On: {formatDate(post.createdAt)}
