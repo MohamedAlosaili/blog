@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { MdArticle } from "react-icons/md";
 
 import Button from "../../components/Button";
-import "./editPost.css";
+import Editor from "./Editor";
 import { createPost, getPost, updatePost } from "../../fetchData";
-import Editor from "../../components/Editor";
+import "./editPost.css";
 
 export async function loader({ params }) {
   const result = await getPost(params.postId);
