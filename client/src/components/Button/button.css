@@ -1,4 +1,4 @@
-.button {
+.blog--btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,16 +17,16 @@
   transition: 0.3s ease-in-out;
 }
 
-.button:active {
+.blog--btn:active {
   transform: scale(0.97);
 }
 
-.button:hover {
+.blog--btn:hover {
   background-color: rgba(var(--accent-color), 0.1);
 }
 
 @media (max-width: 640px) {
-  .button {
+  .blog--btn {
     font-size: 0.875rem;
   }
 }

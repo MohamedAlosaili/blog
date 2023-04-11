@@ -2,7 +2,7 @@ import "./button.css";
 
 const Button = ({ className, onClick, children, disabled }) => (
   <button
-    className={`button ${className}`}
+    className={`blog--btn ${className}`}
     onClick={onClick}
     disabled={disabled}
   >
