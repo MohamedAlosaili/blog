@@ -4,9 +4,11 @@ const request = async (method, url, body) => {
   const options = { method, credentials: "include" };
 
   if (body) {
-    options.headers = {
-      "Content-Type": "application/json",
-    };
+    if (!(body instanceof FormData)) {
+      options.headers = {
+        "Content-Type": "application/json",
+      };
+    }
     // If the body is provided it must be serialized before passing it here
     options.body = body;
   }
@@ -25,6 +27,14 @@ export const getPost = id => request("GET", `/api/v1/posts/${id}`);
 
 export const getPostsFromSearch = query =>
   request("GET", `/api/v1/posts/search?q=${query}`);
+
+export const createPost = body => request("POST", "/api/v1/posts", body);
+
+export const updatePost = (body, postId) =>
+  request("PUT", `/api/v1/posts/${postId}`, body);
+
+export const deletePost = postId =>
+  request("DELETE", `/api/v1/posts/${postId}`);
 
 // Users
 export const loginUser = body => request("POST", "/api/v1/auth/login", body);
