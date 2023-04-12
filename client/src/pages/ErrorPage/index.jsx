@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
 
 import "./errorPage.css";
-import Button from "../../components/Button";
 
 const ErrorPage = () => {
   const error = useRouteError();
@@ -25,7 +24,9 @@ const ErrorPage = () => {
       <p className="error--text red">
         Error: {error.error?.message || error.statusText || error.message}
       </p>
-      <Button onClick={() => navigate(-1)}>Previous page</Button>
+      <button onClick={() => navigate(-1)} className="blog--btn">
+        Previous page
+      </button>
     </div>
   );
 };

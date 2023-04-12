@@ -5,7 +5,6 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
 
-import Button from "../Button";
 import { UserContext } from "../../UserContext";
 import { logoutUser } from "../../fetchData";
 import "./header.css";
@@ -59,7 +58,7 @@ const Header = () => {
           </div>
         ) : (
           <Link to="/login" state={{ from: location.pathname }}>
-            <Button className="header--button">Login</Button>
+            <button className="blog--btn header--button">Login</button>
           </Link>
         )}
       </div>

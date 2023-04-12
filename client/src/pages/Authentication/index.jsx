@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-import Button from "../../components/Button";
 import "./authentication.css";
 
 const Authentication = ({
@@ -20,7 +19,9 @@ const Authentication = ({
         <form className="auth--form" onSubmit={onSubmit}>
           {/* children Form inputs */}
           {children}
-          <Button disabled={loading}>{actionButton}</Button>
+          <button disabled={loading} className="blog--btn">
+            {actionButton}
+          </button>
           <p>
             {page === "Login"
               ? "Don't have an account?"

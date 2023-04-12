@@ -3,7 +3,6 @@ import { useNavigate, useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdArticle } from "react-icons/md";
 
-import Button from "../../components/Button";
 import Editor from "./Editor";
 import { createPost, getPost, updatePost } from "../../fetchData";
 import "./editPost.css";
@@ -111,10 +110,13 @@ const EditPost = () => {
         </label>
         <Editor onChange={({ text }) => setContent(text)} value={content} />
         <div className="edit--post--buttons">
-          <Button onClick={handleCanceling} className="edit--post--cancel">
+          <button
+            onClick={handleCanceling}
+            className="blog--btn edit--post--cancel"
+          >
             Cancel
-          </Button>
-          <Button>
+          </button>
+          <button className="blog--btn">
             {oldPost
               ? loading
                 ? "Updating post..."
@@ -122,7 +124,7 @@ const EditPost = () => {
               : loading
               ? "Creating Post..."
               : "Create Post"}
-          </Button>
+          </button>
         </div>
       </form>
     </section>

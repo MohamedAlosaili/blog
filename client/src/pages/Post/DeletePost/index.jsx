@@ -7,7 +7,6 @@ import {
 import { BsExclamationCircleFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 
-import Button from "../../../components/Button";
 import { deletePost } from "../../../fetchData";
 import "./deletePost.css";
 
@@ -37,8 +36,10 @@ const DeletePost = () => {
         <BsExclamationCircleFill size={75} color="rgba(255, 0, 0, 0.75)" />
         <p>Are you sure you want to delete "{title}" post?</p>
         <div className="buttons--wrapper">
-          <Button onClick={cancelDeleting}>Cancel</Button>
-          <Button className="delete--post--confirm">I'm sure</Button>
+          <button onClick={cancelDeleting} className="blog--btn">
+            Cancel
+          </button>
+          <button className="blog--btn delete--post--confirm">I'm sure</button>
         </div>
       </Form>
     </div>
