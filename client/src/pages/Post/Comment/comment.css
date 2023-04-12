@@ -1,0 +1,41 @@
+.post--comments-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(var(--accent-color), 0.15);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.post-comments--wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post--comments--author {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.post--comments--date {
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
+.post--comments--button {
+  background-color: transparent;
+  border: none;
+  color: rgb(var(--accent-color));
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.post--comments--button.edit {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.post--comments--content {
+  padding-top: 1rem;
+}
