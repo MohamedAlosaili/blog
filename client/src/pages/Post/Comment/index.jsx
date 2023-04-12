@@ -17,8 +17,7 @@ const Comment = ({ comment, user, setCommentBox }) => {
   };
 
   const commentContent = comment.content.split("\n").map(text => {
-    console.log(text);
-    if (text.trim()) return <p>{text}</p>;
+    if (text.trim()) return <p key={text}>{text}</p>;
     return <br />;
   });
 
@@ -53,7 +52,7 @@ const Comment = ({ comment, user, setCommentBox }) => {
           </>
         )}
       </div>
-      <p className="post--comments--content">{commentContent}</p>
+      <div className="post--comments--content">{commentContent}</div>
     </div>
   );
 };
