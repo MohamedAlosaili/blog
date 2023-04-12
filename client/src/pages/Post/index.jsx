@@ -28,7 +28,7 @@ export async function loader({ params }) {
   if (!result.success)
     throw new Response("", { status: result.status, statusText: result.error });
 
-  return { post: result.data };
+  return result.data;
 }
 
 export async function action({ request, params }) {
@@ -53,7 +53,7 @@ const commentBoxDefaultValue = { type: "new", commentId: undefined, value: "" };
 
 const Post = () => {
   const [user] = useContext(UserContext);
-  const { post } = useLoaderData();
+  const post = useLoaderData();
   const actionState = useActionData();
   const commentFieldRef = useRef(null);
   const [commentBox, setCommentBox] = useState(commentBoxDefaultValue);
