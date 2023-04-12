@@ -1,11 +1,24 @@
-import { useContext } from "react";
-import { Link, Outlet, useLoaderData } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import {
+  Form,
+  Link,
+  Outlet,
+  useActionData,
+  useLoaderData,
+} from "react-router-dom";
 import Balancer from "react-wrap-balancer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { toast } from "react-toastify";
 
 import formatDate from "../../formatDate";
-import { getPost } from "../../fetchData";
+import Comment from "./Comment";
+import {
+  getPost,
+  addComment,
+  updateComment,
+  deleteComment,
+} from "../../fetchData";
 import { UserContext } from "../../UserContext";
 import "./post.css";
 
@@ -18,10 +31,44 @@ export async function loader({ params }) {
   return { post: result.data };
 }
 
+export async function action({ request, params }) {
+  const formData = await request.formData();
+
+  switch (request.method) {
+    case "POST":
+      await addCommentAction(formData, params.postId);
+      break;
+    case "PUT":
+      await updateCommentAction(formData);
+      break;
+    case "DELETE":
+      await deleteCommentAction(formData);
+      break;
+  }
+
+  return { success: true };
+}
+
+const commentBoxDefaultValue = { type: "new", commentId: undefined, value: "" };
+
 const Post = () => {
   const [user] = useContext(UserContext);
   const { post } = useLoaderData();
-  console.log(post, user);
+  const actionState = useActionData();
+  const commentFieldRef = useRef(null);
+  const [commentBox, setCommentBox] = useState(commentBoxDefaultValue);
+
+  useEffect(() => {
+    if (actionState?.success) {
+      if (commentBox.type === "edit") setCommentBox(commentBoxDefaultValue);
+      commentFieldRef.current.value = "";
+    }
+  }, [actionState]);
+
+  const cancelEditComment = e => {
+    e.preventDefault();
+    setCommentBox(commentBoxDefaultValue);
+  };
 
   return (
     <div className="post">
@@ -72,10 +119,113 @@ const Post = () => {
             {post.content}
           </ReactMarkdown>
         </main>
+        <footer className="post--comments">
+          <h2>Comments</h2>
+          <section className="post--comments--container">
+            {post.comments.map(comment => (
+              <Comment
+                key={comment._id}
+                comment={comment}
+                user={user}
+                setCommentBox={setCommentBox}
+                commentFieldRef={commentFieldRef}
+              />
+            ))}
+            {user ? (
+              <Form
+                method={commentBox.type === "edit" ? "PUT" : "POST"}
+                className="post--comments--form"
+                id="comments-form"
+                key={commentBox.type}
+              >
+                <>
+                  <h3>
+                    {commentBox.type === "new"
+                      ? "Leave a comment"
+                      : "Edit your comment"}
+                  </h3>
+                  <textarea
+                    ref={commentFieldRef}
+                    name="comment"
+                    className="comments--form--input"
+                    placeholder="Write a comment"
+                    required
+                    defaultValue={commentBox.value}
+                  />
+                  <div className="post--comments--form--buttons">
+                    {commentBox.type === "edit" && (
+                      <button
+                        onClick={cancelEditComment}
+                        className="blog--btn cancel"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    <button
+                      className="blog--btn"
+                      name={commentBox?.commentId ? "commentId" : ""}
+                      value={commentBox?.commentId ? commentBox.commentId : ""}
+                    >
+                      {commentBox.type === "new"
+                        ? "Send comment"
+                        : "Update comment"}
+                    </button>
+                  </div>
+                </>
+              </Form>
+            ) : (
+              <p className="post--comments--form">
+                To write a comment, please{" "}
+                <Link
+                  to="/login"
+                  state={{ from: `/posts/${post.id}` }}
+                  className="login--link"
+                >
+                  Login
+                </Link>{" "}
+                to your account.
+              </p>
+            )}
+          </section>
+        </footer>
       </article>
       <Outlet context={{ title: post.title }} />
     </div>
   );
 };
+
+async function addCommentAction(formData, postId) {
+  const comment = formData.get("comment");
+
+  const result = await addComment(JSON.stringify({ content: comment }), postId);
+
+  if (!result.success) return toast.error(result.error);
+
+  toast.success("Comment added", { autoClose: 1000 });
+}
+
+async function updateCommentAction(formData) {
+  const comment = formData.get("comment");
+  const commentId = formData.get("commentId");
+
+  const result = await updateComment(
+    JSON.stringify({ content: comment }),
+    commentId
+  );
+
+  if (!result.success) return toast.error(result.error);
+
+  toast.success("Comment has been Updated");
+}
+
+async function deleteCommentAction(formData) {
+  const commentId = formData.get("commentId");
+
+  const result = await deleteComment(commentId);
+
+  if (!result.success) return toast.error(result.error);
+
+  toast.success("Comment has been deleted");
+}
 
 export default Post;
