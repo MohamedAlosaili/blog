@@ -17,6 +17,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import EditPost, { loader as editPostLoader } from "./pages/EditPost";
+import PrivateRoute from "./components/PrivateRoute";
 import Post, {
   loader as postLoader,
   action as commentAction,
@@ -40,13 +41,22 @@ const router = createBrowserRouter(
       >
         <Route
           path="delete"
-          element={<DeletePost />}
+          element={
+            <PrivateRoute>
+              <DeletePost />
+            </PrivateRoute>
+          }
           action={deletePostAction}
+          loader={postLoader}
         />
       </Route>
       <Route
         path="posts/:postId/edit"
-        element={<EditPost />}
+        element={
+          <PrivateRoute>
+            <EditPost />
+          </PrivateRoute>
+        }
         loader={editPostLoader}
       />
     </Route>
