@@ -36,6 +36,16 @@ export const updatePost = (body, postId) =>
 export const deletePost = postId =>
   request("DELETE", `/api/v1/posts/${postId}`);
 
+// Comments
+export const addComment = (body, postId) =>
+  request("POST", `/api/v1/posts/${postId}/comments`, body);
+
+export const updateComment = (body, commentId) =>
+  request("PUT", `/api/v1/comments/${commentId}`, body);
+
+export const deleteComment = commentId =>
+  request("DELETE", `/api/v1/comments/${commentId}`);
+
 // Users
 export const loginUser = body => request("POST", "/api/v1/auth/login", body);
 
