@@ -17,7 +17,10 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import EditPost, { loader as editPostLoader } from "./pages/EditPost";
-import Post, { loader as postLoader } from "./pages/Post";
+import Post, {
+  loader as postLoader,
+  action as commentAction,
+} from "./pages/Post";
 import DeletePost, {
   action as deletePostAction,
 } from "./pages/Post/DeletePost";
@@ -29,7 +32,12 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="posts/create" element={<EditPost />} />
-      <Route path="posts/:postId" element={<Post />} loader={postLoader}>
+      <Route
+        path="posts/:postId"
+        element={<Post />}
+        loader={postLoader}
+        action={commentAction}
+      >
         <Route
           path="delete"
           element={<DeletePost />}
