@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Header from "./components/Header";
@@ -17,6 +17,11 @@ const App = () => {
         {showHeader && <Header />}
         <Outlet />
       </UserContextProvider>
+      <ScrollRestoration
+        getKey={location =>
+          location.pathname === "/" ? location.pathname : location.key
+        }
+      />
     </div>
   );
 };
