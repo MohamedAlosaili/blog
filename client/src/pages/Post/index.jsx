@@ -59,6 +59,10 @@ const Post = () => {
   const [commentBox, setCommentBox] = useState(commentBoxDefaultValue);
 
   useEffect(() => {
+    document.title = `<Blog /> | ${post.title}`;
+  }, []);
+
+  useEffect(() => {
     if (actionState?.success) {
       if (commentBox.type === "edit") setCommentBox(commentBoxDefaultValue);
       commentFieldRef.current.value = "";
