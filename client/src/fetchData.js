@@ -9,6 +9,14 @@ const request = async (method, url, body) => {
         "Content-Type": "application/json",
       };
     }
+    // Add client url to the header to provide it in the email
+    if (url.endsWith("forgotpassword")) {
+      options.headers = {
+        ...options.headers,
+        ["x-client-url"]: location.origin,
+      };
+    }
+
     // If the body is provided it must be serialized before passing it here
     options.body = body;
   }
@@ -55,3 +63,9 @@ export const signupUser = body =>
   request("POST", "/api/v1/auth/register", body);
 
 export const getCurrentUser = () => request("GET", "/api/v1/auth/me");
+
+export const forgotPassword = body =>
+  request("POST", "/api/v1/auth/forgotpassword", body);
+
+export const resetPassword = (body, token) =>
+  request("POST", `/api/v1/auth/resetpassword/${token}`, body);
