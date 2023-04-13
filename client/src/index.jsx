@@ -16,12 +16,14 @@ import Home, { loader as homeLoader } from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import EditPost, { loader as editPostLoader } from "./pages/EditPost";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import PrivateRoute from "./components/PrivateRoute";
 import Post, {
   loader as postLoader,
   action as commentAction,
 } from "./pages/Post";
+import EditPost, { loader as editPostLoader } from "./pages/EditPost";
 import DeletePost, {
   action as deletePostAction,
 } from "./pages/Post/DeletePost";
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>
       <Route index element={<Home />} loader={homeLoader} />
       <Route path="login" element={<Login />} />
+      <Route path="forgotpassword" element={<ForgotPassword />} />
+      <Route path="resetpassword/:token" element={<ResetPassword />} />
       <Route path="signup" element={<Signup />} />
       <Route path="posts/create" element={<EditPost />} />
       <Route
