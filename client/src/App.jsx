@@ -8,7 +8,7 @@ const App = () => {
   const location = useLocation();
 
   const showHeader =
-    location.pathname !== "/login" && location.pathname !== "/signup";
+    location.pathname === "/" || location.pathname.startsWith("/posts");
 
   return (
     <div>
