@@ -25,6 +25,7 @@ connectDB();
 
 // Parse Request Body
 app.use(express.json({ limit: "30mb" }));
+app.use(express.urlencoded({ extended: false }));
 
 // Parse cookie
 app.use(cookieParser());
@@ -47,7 +48,16 @@ app.use(
 // Protect against HTTP Parameter Pollution attacks
 app.use(hpp());
 // CORS enable other domains to connect and make requests to this API
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: (origin, callback) => {
+      // set Access-Control-Allow-Origin header to origin
+      app.set("Access-Control-Allow-Origin", origin);
+      return callback(null, true);
+    },
+  })
+);
 
 // Mount routes
 app.use("/api/v1/auth", auth);
