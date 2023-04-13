@@ -3,18 +3,19 @@
   display: grid;
   place-items: center;
   font-size: 0.875rem;
+  padding: 1rem;
 }
 
 .auth--wrapper {
   background-color: var(--bg-color-alt);
   padding: 2rem 1rem;
   border-radius: 0.5rem;
+  max-width: 100%;
 }
 
 .auth--title {
   margin-bottom: 2rem;
   text-align: center;
-  text-transform: capitalize;
 }
 
 .auth--title span {
@@ -30,4 +31,12 @@
 
 .auth--link {
   color: rgb(var(--accent-color));
+}
+
+.auth--link:nth-child(n + 1) {
+  margin-top: -0.75rem;
+}
+
+.auth--link:hover {
+  text-decoration: underline rgb(var(--accent-color));
 }
