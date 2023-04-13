@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,13 +15,33 @@ const Login = () => {
     getUserInfo
   );
 
+  const loginLinks = (
+    <>
+      <p>
+        Don't have an account?{" "}
+        <Link
+          to={`/signup`}
+          className="auth--link"
+          state={location.state ? { from: location.state.from } : undefined}
+          replace={`/signup`}
+        >
+          Sign up
+        </Link>
+      </p>
+      <Link to="/forgotpassword" className="auth--link">
+        Forgot your password
+      </Link>
+    </>
+  );
+
   return (
     <Authentication
-      page="login"
+      page={{ name: "Login" }}
       loading={logging}
       location={location}
       onSubmit={login}
       actionButton={logging ? "Loggingin..." : "Login"}
+      links={loginLinks}
     >
       <label className="form--label">
         Username
