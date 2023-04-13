@@ -1,0 +1,33 @@
+.message--box--container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+}
+
+.message--box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--bg-color-alt);
+  border-radius: 0.5rem;
+  padding: 2rem 1rem;
+  width: 25rem;
+  max-width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.message--box--img {
+  width: 15rem;
+}
+
+.message--box--text {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.message--box strong {
+  color: rgb(var(--accent-color));
+}
