@@ -3,92 +3,13 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import Input from "../../components/Input";
 import Authentication from "../Authentication";
 import { signupUser } from "../../fetchData";
 import { UserContext } from "../../UserContext";
 
 const Signup = () => {
-  const [user, userLoading, , getUserInfo] = useContext(UserContext);
-  const location = useLocation();
-  const { handleChange, signup, signupInfo, signing } = useSignup(
-    location,
-    getUserInfo
-  );
-
-  return (
-    <Authentication
-      page="signup"
-      loading={signing}
-      location={location}
-      onSubmit={signup}
-      actionButton={signing ? "Signing..." : "Sign up"}
-    >
-      <label className="form--label">
-        Name
-        <input
-          type="text"
-          name="name"
-          required
-          placeholder="Ali"
-          className="form--input"
-          value={signupInfo.name}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form--label">
-        Username
-        <input
-          type="text"
-          name="username"
-          required
-          placeholder="e.g. user-123"
-          className="form--input"
-          value={signupInfo.username}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form--label">
-        Email
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="example@gmail.com"
-          className="form--input"
-          value={signupInfo.email}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form--label">
-        Password
-        <input
-          type="password"
-          name="password"
-          required
-          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-          className="form--input"
-          value={signupInfo.password}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form--label">
-        Confirm Password
-        <input
-          type="password"
-          name="confirmPassword"
-          required
-          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-          className="form--input"
-          value={signupInfo.confirmPassword}
-          onChange={handleChange}
-        />
-      </label>
-    </Authentication>
-  );
-};
-
-function useSignup(location, getUserInfo) {
-  const navigate = useNavigate();
+  const [, , , getUserInfo] = useContext(UserContext);
   const [signupInfo, setSignupInfo] = useState({
     username: "",
     name: "",
@@ -96,7 +17,87 @@ function useSignup(location, getUserInfo) {
     password: "",
     confirmPassword: "",
   });
+  const location = useLocation();
+  const [signup, signing] = useSignup(signupInfo, location, getUserInfo);
+
+  const signupLink = (
+    <p>
+      Already have an account?{" "}
+      <Link
+        to={`/login`}
+        className="auth--link"
+        state={location.state ? { from: location.state.from } : undefined}
+        replace={`/login`}
+      >
+        Login
+      </Link>
+    </p>
+  );
+
+  return (
+    <Authentication
+      page={{ name: "Sign up" }}
+      loading={signing}
+      onSubmit={signup}
+      actionButton={signing ? "Signing..." : "Sign up"}
+      links={signupLink}
+    >
+      <Input
+        label="Name"
+        type="text"
+        name="name"
+        required={true}
+        placeholder="Ali"
+        value={signupInfo.name}
+        setValue={setSignupInfo}
+      />
+      <Input
+        label="Username"
+        type="text"
+        name="username"
+        required={true}
+        placeholder="e.g. user-123"
+        value={signupInfo.username}
+        setValue={setSignupInfo}
+      />
+      <Input
+        label="Email"
+        type="email"
+        name="email"
+        required={true}
+        placeholder="example@gmail.com"
+        value={signupInfo.email}
+        setValue={setSignupInfo}
+      />
+      <Input
+        label="Password"
+        type="password"
+        name="password"
+        required={true}
+        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+        value={signupInfo.password}
+        setValue={setSignupInfo}
+      />
+      <Input
+        label="Confirm Password"
+        type="password"
+        name="confirmPassword"
+        required={true}
+        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+        value={signupInfo.confirmPassword}
+        setValue={setSignupInfo}
+      />
+    </Authentication>
+  );
+};
+
+function useSignup(signupInfo, location, getUserInfo) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.title = `<Blog /> | Sign up`;
+  }, []);
 
   async function signup(event) {
     event.preventDefault();
@@ -109,7 +110,6 @@ function useSignup(location, getUserInfo) {
     setLoading(true);
     try {
       const result = await signupUser(JSON.stringify(restInfo));
-      console.log(restInfo);
       if (!result.success) {
         setLoading(false);
         return toast.error(result.error);
@@ -129,16 +129,7 @@ function useSignup(location, getUserInfo) {
     }
   }
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setSignupInfo(prevInfo => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  }
-
-  return { handleChange, signup, signupInfo, signing: loading };
+  return [signup, loading];
 }
 
 export default Signup;
