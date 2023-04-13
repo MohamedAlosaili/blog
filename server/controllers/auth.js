@@ -2,7 +2,7 @@ const User = require("../models/User");
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sendEmail");
-const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 
 // @desc     Register user
@@ -50,6 +50,8 @@ const sendResponseAndCookie = (user, statusCode, res) => {
     httpOnly: true,
   };
 
+  if (process.env.NODE_ENV === "production") options.secure = true;
+
   res.cookie("token", token, options);
 
   res.status(statusCode).json({ success: true, token });
@@ -84,9 +86,9 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   }
 
   // Check if the token is not expires
-  if (user.resetPasswordExpire?.getTime() > Date.now()) {
+  if (user.resetPasswordExpire > Date.now()) {
     const remaining = Math.ceil(
-      (user.resetPasswordExpire.getTime() - Date.now()) / 1000 / 60
+      (user.resetPasswordExpire - Date.now()) / 1000 / 60
     );
     return next(
       new ErrorResponse(
@@ -97,14 +99,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const token = user.getJwtToken("password");
-  const expireDate = new Date(Date.now() + 10 * 60 * 1000);
+  const token = user.getResetPasswordToken();
 
   const url = `${req.headers["x-client-url"]}/resetpassword/${token}`;
   await sendEmail(user.email, url, user.name);
-
-  user.resetPasswordToken = token;
-  user.resetPasswordExpire = expireDate;
 
   await user.save({ validateBeforeSave: false });
 
@@ -120,14 +118,21 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   const { token } = req.params;
   const { password } = req.body;
 
-  // Throws an error if not verified or if it expired
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
 
-  const user = await User.findById(decoded.id).select("+password");
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  }).select("+password");
 
-  // Hash new password before save it
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(password, salt);
+  if (!user) {
+    return next(new ErrorResponse("Invalid token", 400));
+  }
+
+  user.password = password;
 
   // Remove token
   user.resetPasswordToken = undefined;
@@ -135,9 +140,5 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  res.status(200).json({
-    success: true,
-    data: null,
-    message: "Password changed successfully",
-  });
+  sendResponseAndCookie(user, 200, res);
 });
