@@ -3,6 +3,7 @@ import { useNavigate, useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdArticle } from "react-icons/md";
 
+import Input from "../../components/Input";
 import Editor from "./Editor";
 import { createPost, getPost, updatePost } from "../../fetchData";
 import "./editPost.css";
@@ -35,15 +36,6 @@ const EditPost = () => {
     fileInputRef
   );
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-
-    setNewPost(prevPost => ({
-      ...prevPost,
-      [name]: value,
-    }));
-  };
-
   const handleCanceling = event => {
     event.preventDefault();
     const navigateTo = location.state ? location.state.from : "/";
@@ -56,58 +48,41 @@ const EditPost = () => {
         {oldPost ? "Edit Post" : "Create New Post"} <MdArticle />
       </h1>
       <form className="edit--post--form" onSubmit={editPostHandler}>
-        <label className="form--label">
-          Title
-          <input
-            type="text"
-            name="title"
-            className="form--input"
-            placeholder="Post title"
-            required
-            value={newPost.title}
-            onChange={handleChange}
-          />
-        </label>
-        <label className="form--label">
-          Summary
-          <input
-            type="text"
-            name="summary"
-            className="form--input"
-            placeholder="Summary of the post content"
-            required
-            value={newPost.summary}
-            onChange={handleChange}
-          />
-        </label>
-        <label className="form-label">
-          Cover Image
-          <input
-            ref={fileInputRef}
-            type="file"
-            name="coverImage"
-            className="form--input"
-            placeholder="Cover Image"
-            required={!oldPost}
-          />
-        </label>
-        <label className="form-label">
-          Tags
-          <span className="input--hint--icon">i</span>
-          <span className="input--hint--text">
-            To add tags, type them one by one and separate each with a comma.
-            For example: 'Meditation,Remote Work,Productivity'.
-          </span>
-          <input
-            type="text"
-            name="tags"
-            className="form--input"
-            placeholder="Post tags e.g. Meditation,Remote Work,Productivity"
-            required
-            value={newPost.tags}
-            onChange={handleChange}
-          />
-        </label>
+        <Input
+          label="Title"
+          type="text"
+          name="title"
+          placeholder="Post title"
+          required={true}
+          value={newPost.title}
+          setValue={setNewPost}
+        />
+        <Input
+          label="Summary"
+          type="text"
+          name="summary"
+          placeholder="Summary of the post content"
+          required={true}
+          value={newPost.summary}
+          setValue={setNewPost}
+        />
+        <Input
+          label="Cover Image"
+          inputRef={fileInputRef}
+          type="file"
+          name="coverImage"
+          placeholder="Cover Image"
+          required={!oldPost}
+        />
+        <Input
+          label="Tags"
+          type="text"
+          name="tags"
+          placeholder="Post tags e.g. Meditation,Remote Work,Productivity"
+          required={true}
+          value={newPost.tags}
+          setValue={setNewPost}
+        />
         <Editor onChange={({ text }) => setContent(text)} value={content} />
         <div className="edit--post--buttons">
           <button
