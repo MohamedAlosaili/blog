@@ -3,17 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import Input from "../../components/Input";
 import Authentication from "../Authentication";
 import { loginUser } from "../../fetchData";
 import { UserContext } from "../../UserContext";
 
 const Login = () => {
   const [user, userLoading, , getUserInfo] = useContext(UserContext);
+  const [loginInfo, setLoginInfo] = useState({ username: "", password: "" });
   const location = useLocation();
-  const { handleChange, login, loginInfo, logging } = useLogin(
-    location,
-    getUserInfo
-  );
+  const [login, logging] = useLogin(loginInfo, location, getUserInfo);
 
   const loginLinks = (
     <>
@@ -43,35 +42,30 @@ const Login = () => {
       actionButton={logging ? "Loggingin..." : "Login"}
       links={loginLinks}
     >
-      <label className="form--label">
-        Username
-        <input
-          type="text"
-          name="username"
-          placeholder="e.g. user-123"
-          className="form--input"
-          value={loginInfo.username}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form--label">
-        Password
-        <input
-          type="password"
-          name="password"
-          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-          className="form--input"
-          value={loginInfo.password}
-          onChange={handleChange}
-        />
-      </label>
+      <Input
+        label="Username"
+        type="text"
+        name="username"
+        placeholder="e.g. user-123"
+        value={loginInfo.username}
+        setValue={setLoginInfo}
+        required={true}
+      />
+      <Input
+        label="Password"
+        type="password"
+        name="password"
+        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+        value={loginInfo.password}
+        setValue={setLoginInfo}
+        required={true}
+      />
     </Authentication>
   );
 };
 
-function useLogin(location, getUserInfo) {
+function useLogin(loginInfo, location, getUserInfo) {
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -111,16 +105,7 @@ function useLogin(location, getUserInfo) {
     }
   }
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setLoginInfo(prevInfo => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  }
-
-  return { handleChange, login, loginInfo, logging: loading };
+  return [login, loading];
 }
 
 export default Login;
