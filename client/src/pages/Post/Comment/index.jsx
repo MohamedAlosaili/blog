@@ -1,11 +1,14 @@
-import { Form, Link } from "react-router-dom";
+import { useState } from "react";
+import { Form } from "react-router-dom";
 import { TbEdit } from "react-icons/tb";
 import { BsFillTrashFill } from "react-icons/bs";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 import formatDate from "../../../formatDate";
 import "./comment.css";
 
 const Comment = ({ comment, user, setCommentBox }) => {
+  const [deleting, setDeleting] = useState(false);
   const commentAuthor = user?._id === comment.author._id;
 
   const editComment = () => {
@@ -39,14 +42,22 @@ const Comment = ({ comment, user, setCommentBox }) => {
                 <TbEdit />
               </a>
             </button>
-            <Form method="DELETE">
+            <Form method="DELETE" onSubmit={() => setDeleting(true)}>
               <button
                 className="post--comments--button delete"
                 title="Delete comment"
                 name="commentId"
                 value={comment._id}
+                disabled={deleting}
               >
-                <BsFillTrashFill color="rgba(255, 0, 0, 0.85)" />
+                {deleting ? (
+                  <CgSpinnerTwo
+                    color="rgba(255, 0, 0, 0.85)"
+                    className="loading--spinner"
+                  />
+                ) : (
+                  <BsFillTrashFill color="rgba(255, 0, 0, 0.85)" />
+                )}
               </button>
             </Form>
           </>
