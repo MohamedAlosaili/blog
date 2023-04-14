@@ -20,9 +20,7 @@ function useAuth() {
     getUserInfo();
   }, []);
 
-  async function getUserInfo(mobileToken) {
-    if (mobileToken !== undefined) setCookieToken(mobileToken);
-
+  async function getUserInfo() {
     !loading && setLoading(true);
     error && setError(undefined);
     try {
@@ -34,14 +32,6 @@ function useAuth() {
       setError(err);
       setLoading(false);
     }
-  }
-
-  function setCookieToken(mobileToken) {
-    const expires = new Date(
-      Date.now() + 30 * 24 * 60 * 60 * 1000
-    ).toUTCString();
-
-    document.cookie = `mobile-token=${mobileToken}; expires=${expires}`;
   }
 
   return [user, loading, error, getUserInfo];

@@ -70,7 +70,7 @@ function useResetPassword(passwordRef, confirmPasswordRef) {
         return toast.error(result.error);
       }
 
-      await getUserInfo(result.token);
+      await getUserInfo();
 
       navigate("/", { replace: true });
       setLoading(false);

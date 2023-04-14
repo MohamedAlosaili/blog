@@ -90,7 +90,7 @@ function useLogin(loginInfo, location, getUserInfo) {
       }
 
       // Update user context
-      await getUserInfo(result.token);
+      await getUserInfo();
 
       const navigateTo = location.state ? location.state.from : "/";
       navigate(navigateTo, { replace: navigateTo });
