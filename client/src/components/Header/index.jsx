@@ -72,9 +72,7 @@ const Header = () => {
 function useTheme() {
   const [theme, setTheme] = useState(() => {
     let theme = document.documentElement.className;
-
-    if (theme !== "dark" || theme !== "light") theme = "dark";
-
+    if (theme !== "dark" && theme !== "light") theme = "dark";
     return theme;
   });
 
