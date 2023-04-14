@@ -19,7 +19,7 @@ const Header = () => {
     try {
       const res = await logoutUser();
 
-      if (!res.success) toast.error(res.error);
+      if (!res.success) return toast.error(res.error);
 
       await getUserInfo();
 
