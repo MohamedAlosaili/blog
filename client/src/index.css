@@ -140,7 +140,14 @@ a {
   width: 100%;
 }
 
-.loading-spinner {
+.loading--spinner--container {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.loading--spinner {
   animation: spin 0.75s linear infinite;
 }
 
