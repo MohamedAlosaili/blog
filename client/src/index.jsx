@@ -14,6 +14,7 @@ import ErrorBoundary from "./pages/ErrorBoundary";
 import App from "./App";
 import Home, { loader as homeLoader } from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
+import RedirectUser from "./components/RedirectUser";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -32,10 +33,38 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>
       <Route index element={<Home />} loader={homeLoader} />
-      <Route path="login" element={<Login />} />
-      <Route path="forgotpassword" element={<ForgotPassword />} />
-      <Route path="resetpassword/:token" element={<ResetPassword />} />
-      <Route path="signup" element={<Signup />} />
+      <Route
+        path="login"
+        element={
+          <RedirectUser>
+            <Login />
+          </RedirectUser>
+        }
+      />
+      <Route
+        path="forgotpassword"
+        element={
+          <RedirectUser>
+            <ForgotPassword />
+          </RedirectUser>
+        }
+      />
+      <Route
+        path="resetpassword/:token"
+        element={
+          <RedirectUser>
+            <ResetPassword />
+          </RedirectUser>
+        }
+      />
+      <Route
+        path="signup"
+        element={
+          <RedirectUser>
+            <Signup />
+          </RedirectUser>
+        }
+      />
       <Route path="posts/create" element={<EditPost />} />
       <Route
         path="posts/:postId"
