@@ -114,7 +114,7 @@ function useSignup(signupInfo, location, getUserInfo) {
         return toast.error(result.error);
       }
 
-      await getUserInfo();
+      await getUserInfo(result.token);
 
       const navigateTo = location.state ? location.state.from : "/";
       navigate(navigateTo, { replace: navigateTo });

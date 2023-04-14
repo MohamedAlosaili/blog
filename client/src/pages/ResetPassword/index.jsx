@@ -59,7 +59,7 @@ function useResetPassword(passwordRef, confirmPasswordRef) {
     if (password !== confirmPassword) {
       return toast.error("Password doesn't match");
     }
-    console.log(token);
+
     setLoading(true);
 
     try {
@@ -70,7 +70,7 @@ function useResetPassword(passwordRef, confirmPasswordRef) {
         return toast.error(result.error);
       }
 
-      await getUserInfo();
+      await getUserInfo(result.token);
 
       navigate("/", { replace: true });
       setLoading(false);
