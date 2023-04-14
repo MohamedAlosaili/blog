@@ -21,7 +21,7 @@ function useAuth() {
   }, []);
 
   async function getUserInfo(mobileToken) {
-    setCookieToken(mobileToken);
+    if (mobileToken !== undefined) setCookieToken(mobileToken);
 
     !loading && setLoading(true);
     error && setError(undefined);
