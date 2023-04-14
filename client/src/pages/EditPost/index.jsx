@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdArticle } from "react-icons/md";
@@ -6,6 +6,7 @@ import { MdArticle } from "react-icons/md";
 import Input from "../../components/Input";
 import Editor from "./Editor";
 import { createPost, getPost, updatePost } from "../../fetchData";
+import { UserContext } from "../../UserContext";
 import "./editPost.css";
 
 export async function loader({ params }) {
@@ -107,8 +108,16 @@ const EditPost = () => {
 };
 
 function useEditPost(oldPost, newPost, content, fileInputRef) {
+  const [user, userLoading] = useContext(UserContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Redirect user if he logged out in create post page
+    if (!userLoading && !user && !oldPost) {
+      navigate("/", { replace: true });
+    }
+  }, [user]);
 
   async function editPostHandler(event) {
     event.preventDefault();
@@ -117,19 +126,28 @@ function useEditPost(oldPost, newPost, content, fileInputRef) {
 
     const formData = extractFormData(newPost, content, fileInputRef);
 
-    const editMethod = isNewPost ? createPost : updatePost;
-    const result = await editMethod(formData, oldPost?.id);
+    try {
+      const editMethod = isNewPost ? createPost : updatePost;
+      const result = await editMethod(formData, oldPost?.id);
 
-    if (!result.success) {
+      if (!result.success) {
+        setLoading(false);
+        return toast.error(result.error);
+      }
+
+      toast.success(
+        isNewPost ? "New post created" : "Post updated succesfully",
+        {
+          autoClose: 1000,
+        }
+      );
+      navigate(`/posts/${result.data.id}`);
       setLoading(false);
-      return toast.error(result.error);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+      setLoading(false);
     }
-
-    toast.success(isNewPost ? "New post created" : "Post updated succesfully", {
-      autoClose: 1000,
-    });
-    navigate(`/posts/${result.data.id}`);
-    setLoading(false);
   }
 
   function extractFormData(newPost, content, fileInputRef) {
