@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL;
+// const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = "https://b-log.herokuapp.com";
 
 const request = async (method, url, body) => {
   const options = { method, credentials: "include" };
