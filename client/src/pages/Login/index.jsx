@@ -22,7 +22,6 @@ const Login = () => {
           to={`/signup`}
           className="auth--link"
           state={location.state ? { from: location.state.from } : undefined}
-          replace={`/signup`}
         >
           Sign up
         </Link>
