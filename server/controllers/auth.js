@@ -48,6 +48,7 @@ const sendResponseAndCookie = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    sameSite: "None",
   };
 
   if (process.env.NODE_ENV === "production") options.secure = true;
@@ -61,7 +62,14 @@ const sendResponseAndCookie = (user, statusCode, res) => {
 // @route    GET /auth/logout
 // @accesss  Private
 exports.logout = (req, res, next) => {
-  res.cookie("token", "", { expires: new Date(Date.now()) });
+  const options = {
+    expires: new Date(Date.now()),
+    sameSite: "None",
+  };
+
+  if (process.env.NODE_ENV === "production") options.secure = true;
+
+  res.cookie("token", "", options);
   res
     .status(200)
     .json({ success: true, data: null, message: "Logged out successfully" });
