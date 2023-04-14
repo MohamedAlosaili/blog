@@ -25,8 +25,11 @@ function useAuth() {
     error && setError(undefined);
     try {
       const user = await getCurrentUser();
+
       setUser(user.data);
       setLoading(false);
+
+      return user?.error;
     } catch (err) {
       console.log(err);
       setError(err);
