@@ -5,6 +5,7 @@ import {
   Outlet,
   useActionData,
   useLoaderData,
+  useNavigation,
 } from "react-router-dom";
 import Balancer from "react-wrap-balancer";
 import ReactMarkdown from "react-markdown";
@@ -55,6 +56,7 @@ const Post = () => {
   const [user] = useContext(UserContext);
   const post = useLoaderData();
   const actionState = useActionData();
+  const navigation = useNavigation();
   const commentFieldRef = useRef(null);
   const [commentBox, setCommentBox] = useState(commentBoxDefaultValue);
 
@@ -73,6 +75,10 @@ const Post = () => {
     e.preventDefault();
     setCommentBox(commentBoxDefaultValue);
   };
+
+  const commentFormLoading =
+    (navigation.formMethod === "put" || navigation.formMethod === "post") &&
+    navigation.state !== "idle";
 
   return (
     <div className="post">
@@ -171,7 +177,11 @@ const Post = () => {
                       value={commentBox?.commentId ? commentBox.commentId : ""}
                     >
                       {commentBox.type === "new"
-                        ? "Send comment"
+                        ? commentFormLoading && navigation.formMethod !== "put"
+                          ? "Sending..."
+                          : "Send comment"
+                        : commentFormLoading
+                        ? "Updating..."
                         : "Update comment"}
                     </button>
                   </div>
