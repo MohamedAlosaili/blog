@@ -114,12 +114,14 @@ function useSignup(signupInfo, location, getUserInfo) {
         return toast.error(result.error);
       }
 
-      await getUserInfo();
+      const error = await getUserInfo();
+      setLoading(false);
+
+      if (error) return toast.error(error);
 
       const navigateTo = location.state ? location.state.from : "/";
       navigate(navigateTo, { replace: navigateTo });
 
-      setLoading(false);
       toast.success("Signed up successfuly", { autoClose: 1000 });
     } catch (err) {
       console.log(err);

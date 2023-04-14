@@ -90,13 +90,15 @@ function useLogin(loginInfo, location, getUserInfo) {
       }
 
       // Update user context
-      await getUserInfo();
+      const error = await getUserInfo();
+      setLoading(false);
+
+      if (error) return toast.error(error);
 
       const navigateTo = location.state ? location.state.from : "/";
       navigate(navigateTo, { replace: navigateTo });
 
       toast.success("Loggedin successfully", { autoClose: 1000 });
-      setLoading(false);
     } catch (err) {
       console.log(err);
       setLoading(false);

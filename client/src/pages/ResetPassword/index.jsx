@@ -70,10 +70,12 @@ function useResetPassword(passwordRef, confirmPasswordRef) {
         return toast.error(result.error);
       }
 
-      await getUserInfo();
+      const error = await getUserInfo();
+      setLoading(false);
+
+      if (error) return toast.error(error);
 
       navigate("/", { replace: true });
-      setLoading(false);
 
       toast.success("Password Reset", { autoClose: 1000 });
       toast.success("Loggedin successfully", { autoClose: 2000 });
