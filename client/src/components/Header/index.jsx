@@ -45,7 +45,7 @@ const Header = () => {
         ) : user ? (
           <div className="user--info">
             <div className="link">
-              <h3>@{user.username}</h3>
+              <h3 className="user--username">@{user.username}</h3>
               <BsChevronDown className="user--menu_icon" />
             </div>
             {isMenuOpen && (
