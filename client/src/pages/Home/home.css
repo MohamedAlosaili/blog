@@ -24,6 +24,7 @@
   width: 100%;
   border: 0.15rem solid rgba(var(--accent-color), 0.3);
   background-color: rgba(var(--accent-color), 0.3);
+  color: var(--color);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   padding-right: 2rem;
@@ -129,6 +130,7 @@
   right: 2rem;
   font-size: 1.5rem;
   background-color: rgb(var(--accent-color));
+  color: #e2e8f0;
   border: none;
   display: flex;
   align-items: center;
