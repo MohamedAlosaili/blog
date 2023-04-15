@@ -48,10 +48,9 @@ const sendResponseAndCookie = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    sameSite: "None",
+    sameSite: "none",
+    secure: true,
   };
-
-  if (process.env.NODE_ENV === "production") options.secure = true;
 
   res.cookie("token", token, options);
 
@@ -64,10 +63,9 @@ const sendResponseAndCookie = (user, statusCode, res) => {
 exports.logout = (req, res, next) => {
   const options = {
     expires: new Date(Date.now()),
-    sameSite: "None",
+    sameSite: "none",
+    secure: true,
   };
-
-  if (process.env.NODE_ENV === "production") options.secure = true;
 
   res.cookie("token", "", options);
   res
