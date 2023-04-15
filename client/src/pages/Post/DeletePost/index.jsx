@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Form,
   redirect,
@@ -23,23 +24,37 @@ export async function action({ params }) {
 const DeletePost = () => {
   const navigate = useNavigate();
   const { title } = useOutletContext();
+  const [loading, setLoading] = useState(false);
 
   const cancelDeleting = event => {
     event.preventDefault();
-    navigate(-1);
+    !loading && navigate(-1);
   };
 
   return (
     <div className="delete--post">
       <div className="delete--post--layer" onClick={cancelDeleting}></div>
-      <Form method="DELETE" className="delete--post--form">
+      <Form
+        method="DELETE"
+        className="delete--post--form"
+        onSubmit={() => setLoading(true)}
+      >
         <BsExclamationCircleFill size={75} color="rgba(255, 0, 0, 0.75)" />
         <p>Are you sure you want to delete "{title}" post?</p>
         <div className="buttons--wrapper">
-          <button onClick={cancelDeleting} className="blog--btn">
+          <button
+            onClick={cancelDeleting}
+            className="blog--btn"
+            disabled={loading}
+          >
             Cancel
           </button>
-          <button className="blog--btn delete--post--confirm">I'm sure</button>
+          <button
+            className="blog--btn delete--post--confirm"
+            disabled={loading}
+          >
+            {loading ? "Deleting..." : "I'm sure"}
+          </button>
         </div>
       </Form>
     </div>
