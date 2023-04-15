@@ -55,6 +55,10 @@
   gap: 2rem;
 }
 
+.edit--post--buttons .blog--btn {
+  flex: 1 0 max-content;
+}
+
 .edit--post--cancel {
   border-color: rgba(255, 0, 0, 0.85);
   color: rgba(255, 0, 0, 0.85);
