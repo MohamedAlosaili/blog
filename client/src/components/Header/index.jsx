@@ -21,7 +21,7 @@ const Header = () => {
 
       if (!res.success) return toast.error(res.error);
 
-      await getUserInfo();
+      await getUserInfo("none");
 
       toast.success(res.message, { autoClose: 1000 });
     } catch (err) {
