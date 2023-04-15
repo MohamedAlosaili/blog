@@ -95,7 +95,7 @@ const Post = () => {
               </Link>
             </p>
             {user?._id === post.author._id && (
-              <>
+              <div className="post--author--buttons">
                 <Link
                   to={`/posts/${post.id}/edit`}
                   state={{ from: `/posts/${post.id}` }}
@@ -106,7 +106,7 @@ const Post = () => {
                 <Link to="delete" className="post--delete--button">
                   Delete Post
                 </Link>
-              </>
+              </div>
             )}
           </div>
           {post.tags.map(tag =>
