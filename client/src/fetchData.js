@@ -30,7 +30,7 @@ const request = async (method, url, body) => {
     // If the body is provided it must be serialized before passing it here
     options.body = body;
   }
-  console.log(options.headers);
+
   const response = await fetch(API_BASE + url, options);
 
   const results = await response.json();
