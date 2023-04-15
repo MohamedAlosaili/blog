@@ -90,7 +90,7 @@ function useLogin(loginInfo, location, getUserInfo) {
       }
 
       // Update user context
-      const error = await getUserInfo();
+      const error = await getUserInfo(result.token);
       setLoading(false);
 
       if (error) return toast.error(error);
