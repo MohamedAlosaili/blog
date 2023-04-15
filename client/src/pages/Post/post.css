@@ -2,26 +2,48 @@
   padding: 4rem 1rem;
 }
 
+.post--title {
+  font-size: 2.5rem;
+}
+
 .post--info--wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+  gap: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
-}
-
-.post--title {
-  font-size: 2.5rem;
 }
 
 .post--info {
   margin-right: auto;
 }
 
+.post--author--buttons {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.post--author--buttons > * {
+  flex: 1 0 max-content;
+}
+
+@media (min-width: 640px) {
+  .post--info--wrapper {
+    flex-direction: row;
+  }
+
+  .post--author--buttons {
+    width: auto;
+  }
+}
+
 .post--edit--button,
 .post--delete--button {
   display: block;
   border: 1px solid rgb(var(--accent-color));
+  text-align: center;
   padding: 0.25rem 0.75rem;
   border-radius: 0.5rem;
   color: rgb(var(--accent-color));
@@ -34,7 +56,6 @@
   color: rgba(255, 0, 0, 0.85);
   font-size: 1rem;
   cursor: pointer;
-  margin-left: 1rem;
 }
 
 .post--delete--button:hover {
