@@ -20,7 +20,9 @@ function useAuth() {
     getUserInfo();
   }, []);
 
-  async function getUserInfo() {
+  async function getUserInfo(token) {
+    if (token) storeTokenInCookies(token);
+
     !loading && setLoading(true);
     error && setError(undefined);
     try {
@@ -35,6 +37,14 @@ function useAuth() {
       setError(err);
       setLoading(false);
     }
+  }
+
+  function storeTokenInCookies(token) {
+    const expires = new Date(
+      token === "none" ? Date.now() : Date.now() + 30 * 24 * 60 * 60 * 1000
+    ).toUTCString();
+
+    document.cookie = `auth-token=${token}; expires=${expires};`;
   }
 
   return [user, loading, error, getUserInfo];
