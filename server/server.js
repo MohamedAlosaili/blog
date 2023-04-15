@@ -51,11 +51,9 @@ app.use(hpp());
 app.use(
   cors({
     credentials: true,
-    origin: (origin, callback) => {
-      // set Access-Control-Allow-Origin header to origin
-      app.set("Access-Control-Allow-Origin", origin);
-      return callback(null, true);
-    },
+    // origin: "http://localhost:5173", // Development Origin
+    origin: "https://blo-g.netlify.app", // Production Origin
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
