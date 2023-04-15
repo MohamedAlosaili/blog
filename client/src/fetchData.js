@@ -2,11 +2,20 @@
 const API_BASE = "https://b-log.herokuapp.com";
 
 const request = async (method, url, body) => {
-  const options = { method, credentials: "include" };
+  const token = getToken();
+
+  const options = {
+    method,
+    credentials: "include",
+    headers: {
+      authorization: token ? `Bearer ${token}` : undefined,
+    },
+  };
 
   if (body) {
     if (!(body instanceof FormData)) {
       options.headers = {
+        ...options.headers,
         "Content-Type": "application/json",
       };
     }
@@ -21,13 +30,23 @@ const request = async (method, url, body) => {
     // If the body is provided it must be serialized before passing it here
     options.body = body;
   }
-
+  console.log(options.headers);
   const response = await fetch(API_BASE + url, options);
 
   const results = await response.json();
 
   return { ...results, status: response.status };
 };
+
+function getToken() {
+  const cookies = document.cookie;
+  const regex = /auth-token=([^;]+)/;
+  const cookie = regex.exec(cookies)?.[0];
+
+  const token = cookie?.slice(cookie.indexOf("=") + 1);
+
+  return token;
+}
 
 // Posts
 export const getPosts = () => request("GET", "/api/v1/posts");
