@@ -4,7 +4,7 @@ A full-stack blog site created using the MERN (MongoDB, Express, React, Node.js)
 
 ## Motivation
 
-I built this blog site as a practice project to learn and combine the skills of Reactjs with the new skills I have learned in Node.js, Express, and MongoDB. The aim of the project is to create a functional blog site with user authentication and authorization, where users can create, read, update, and delete blog posts and reviews.
+I built this blog site as a practice project to learn and combine the skills of Reactjs with the new skills I have learned in Node.js, Express, and MongoDB. The aim of the project is to create a functional blog site with user authentication and authorization, where users can create, read, update, and delete blog posts and comments.
 
 ## Features
 
